@@ -141,6 +141,15 @@ public class jogoDamas {
         //funcao checar se tem vencedor aqui
         }while(vencedor!=1);
     }//fim da funcao turno
+
+    //funcao checa se pedra simples pode comer pedra
+    /*public static void checaSimplesComer(){
+        if(mat[lin][col]==pedra1){
+
+        }else{
+
+        }
+    }*/
     
     //funcao jogar
     public static void jogar(){
@@ -148,14 +157,19 @@ public class jogoDamas {
             int lin;
             int col;
             do{ //jogador 1 seleciona pedra FUNCIONANDO OK
-                System.out.print("Jogador 1 selecione a pedra (linha) ");
-                lin=leitor.nextInt();
-                lin--;
-                System.out.print("Jogador 1 selecione a pedra (coluna) ");
-                col=leitor.nextInt();
-                col--;
-                if(mat[lin][col]!=pedra1){
-                    System.out.println("pedra ou posicao invalida!!");
+                do{
+                    System.out.print("Jogador 1 selecione a pedra (linha) ");
+                    lin=leitor.nextInt();
+                    lin--;
+                    System.out.print("Jogador 1 selecione a pedra (coluna) ");
+                    col=leitor.nextInt();
+                    col--;
+                    if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
+                        System.out.println("posicao invalida!!");
+                    }                    
+                }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
+                if(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X){
+                    System.out.println("pedra invalida ou posicao invalida!!");
                 }
             }while(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X);
             if(mat[lin][col]=='x'){//verifica se a pedra é simples o movimento que pode fazer
@@ -178,14 +192,19 @@ public class jogoDamas {
             int lin;
             int col;
             do{ //jogador 2 seleciona pedra FUNCIONANDO OK
+                do{
                 System.out.print("Jogador 2 selecione a pedra (linha) ");
                 lin=leitor.nextInt();
                 lin--;
                 System.out.print("Jogador 2 selecione a pedra (coluna) ");
                 col=leitor.nextInt();
                 col--;
-                if(mat[lin][col]!=pedra2){
-                    System.out.println("pedra ou posicao invalida!!");
+                    if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
+                        System.out.println("posicao invalida!!");
+                    }
+                }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
+                if(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A){
+                    System.out.println("pedra invalida ou posicao invalida!!");
                 }
             }while(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A);
             if(mat[lin][col]=='a'){//verifica se a pedra é simples e os movimentos que pode fazer
