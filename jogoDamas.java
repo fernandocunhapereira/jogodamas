@@ -136,11 +136,44 @@ public class jogoDamas {
             turno--;
         }
         imprimeTabuleiro();
-        System.out.println("quantidade pedras jogador 1 = "+contPedra1);        
-        System.out.println("quantidade pedras jogador 2 = "+contPedra2);
+        System.out.println("quantidade pedras (x,X) jogador 1 = "+contPedra1);        
+        System.out.println("quantidade pedras (a,A) jogador 2 = "+contPedra2);
         //funcao checar se tem vencedor aqui
         }while(vencedor!=1);
     }//fim da funcao turno
+
+    //funcao checa se há movimento possivel para pedra
+    public static int movimentoPossivel(int lin_,int col_){
+        int possivel=0;
+        int opcao=0;
+        if(mat[lin_][col_]==pedra1){//checa opcoes pedra simples jogador 1
+            if(lin_+1<linha && col_-1>=0 && mat[lin_+1][col_-1]==casaValida){
+                opcao=1; //checa inferior esquerdo
+            }
+            if(lin_+1<linha && col_+1<coluna && mat[lin_+1][col_+1]==casaValida){
+                opcao=1; //checa inferior direito
+            }
+            if(checaSimplesComer(lin_,col_)==1){
+                opcao=1;
+            }
+        }else{//checa opcoes pedra simples jogador 2
+            if(lin_-1>=0 && col_-1>=0 && mat[lin_-1][col_-1]==casaValida){
+                opcao=1; //checa superior esquerdo
+            }
+            if(lin_-1>=0 && col_+1<coluna && mat[lin_-1][col_+1]==casaValida){
+                opcao=1; //checa superior direito
+            }
+            if(checaSimplesComer(lin_,col_)==1){
+                opcao=1;
+            }                        
+        }
+        if(opcao==1){
+            possivel=1;
+        }else{
+            System.out.println("Não há movimento possivel para pedra ("+(lin_+1)+","+(col_+1)+")!!");
+        }
+        return possivel;
+    }
 
     //funcao checa se pedra simples pode comer pedra
     public static int checaSimplesComer(int lin_,int col_){
@@ -253,9 +286,9 @@ public class jogoDamas {
             }             
         }
         if(podeComer==1){
-            System.out.println("pedra pode comer!!");
+            System.out.println("Pedra ("+(lin_+1)+","+(col_+1)+") pode comer!!");
         }else{
-            System.out.println("pedra nao pode comer!!");
+            System.out.println("Pedra ("+(lin_+1)+","+(col_+1)+") nao pode comer!!");
         }
         return podeComer;
     }//fim da funcao checaSimplesComer
@@ -265,27 +298,29 @@ public class jogoDamas {
         if(turno==0){ //turno do jogador 1
             int lin;
             int col;
-            do{ //jogador 1 seleciona pedra FUNCIONANDO OK
-                do{
-                    System.out.println("TURNO DO JOGADOR 1");
-                    System.out.print("Jogador 1 selecione a pedra (linha) ");
-                    lin=leitor.nextInt();
-                    lin--;
-                    System.out.print("Jogador 1 selecione a pedra (coluna) ");
-                    col=leitor.nextInt();
-                    col--;
-                    if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
-                        System.out.println("posicao invalida!!");
+            do{
+                do{ //jogador 1 seleciona pedra FUNCIONANDO OK
+                    do{
+                        System.out.println("TURNO DO JOGADOR 1");
+                        System.out.print("Jogador 1 selecione a pedra (linha) ");
+                        lin=leitor.nextInt();
+                        lin--;
+                        System.out.print("Jogador 1 selecione a pedra (coluna) ");
+                        col=leitor.nextInt();
+                        col--;
+                        if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
+                            System.out.println("Posicao invalida!!");
+                            imprimeTabuleiro();
+                        }                    
+                    }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
+                    if(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X){
+                        System.out.println("Pedra invalida ou posicao invalida!!");
                         imprimeTabuleiro();
-                    }                    
-                }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
-                if(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X){
-                    System.out.println("pedra invalida ou posicao invalida!!");
-                    imprimeTabuleiro();
-                }
-            }while(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X);
+                    }
+                }while(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X);
+            }while(movimentoPossivel(lin,col)!=1);
             checaSimplesComer(lin,col);
-            if(mat[lin][col]=='x'){//verifica se a pedra é simples o movimento que pode fazer
+            if(mat[lin][col]==pedra1){//verifica se a pedra é simples o movimento que pode fazer
                 do{
                     do{
                         System.out.println("TURNO DO JOGADOR 1");  
@@ -296,13 +331,13 @@ public class jogoDamas {
                         colDest=leitor.nextInt();
                         colDest--;
                         if(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0){
-                            System.out.println("posicao invalida!!");
+                            System.out.println("Destino invalido!!");
                             imprimeTabuleiro();
                         }                         
                     }while(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0);
                     if(linDest!=lin+1 || (colDest!=col-1 && colDest!=col+1) || mat[linDest][colDest]!=casaValida){
                         System.out.println("lin-"+lin+" col-"+col+" linDest-"+linDest+" colDest-"+colDest+" valor na posicao-"+mat[linDest][colDest]);
-                        System.out.println("destino invalido!!");
+                        System.out.println("Destino invalido!!");
                         imprimeTabuleiro();
                     }
                 }while(linDest!=lin+1 || (colDest!=col-1 && colDest!=col+1) || mat[linDest][colDest]!=casaValida);
@@ -312,27 +347,29 @@ public class jogoDamas {
             }else{ //turno do jogador 2
                 int lin;
                 int col;
-                do{ //jogador 2 seleciona pedra FUNCIONANDO OK
-                    do{
-                    System.out.println("TURNO DO JOGADOR 2");                        
-                    System.out.print("Jogador 2 selecione a pedra (linha) ");
-                    lin=leitor.nextInt();
-                    lin--;
-                    System.out.print("Jogador 2 selecione a pedra (coluna) ");
-                    col=leitor.nextInt();
-                    col--;
-                        if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
-                            System.out.println("posicao invalida!!");
+                do{
+                    do{ //jogador 2 seleciona pedra FUNCIONANDO OK
+                        do{
+                        System.out.println("TURNO DO JOGADOR 2");                        
+                        System.out.print("Jogador 2 selecione a pedra (linha) ");
+                        lin=leitor.nextInt();
+                        lin--;
+                        System.out.print("Jogador 2 selecione a pedra (coluna) ");
+                        col=leitor.nextInt();
+                        col--;
+                            if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
+                                System.out.println("Posicao invalida!!");
+                                imprimeTabuleiro();
+                            }
+                        }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
+                        if(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A){
+                            System.out.println("Pedra invalida ou posicao invalida!!");
                             imprimeTabuleiro();
                         }
-                    }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
-                    if(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A){
-                        System.out.println("pedra invalida ou posicao invalida!!");
-                        imprimeTabuleiro();
-                    }
-                }while(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A);
+                    }while(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A);
+                }while(movimentoPossivel(lin,col)!=1);
                 checaSimplesComer(lin,col);
-                if(mat[lin][col]=='a'){//verifica se a pedra é simples e os movimentos que pode fazer
+                if(mat[lin][col]==pedra2){//verifica se a pedra é simples e os movimentos que pode fazer
                     do{
                         do{
                             System.out.println("TURNO DO JOGADOR 2");  
@@ -343,13 +380,13 @@ public class jogoDamas {
                             colDest=leitor.nextInt();
                             colDest--;
                             if(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0){
-                                System.out.println("posicao invalida!!");
+                                System.out.println("Destino invalido!!");
                                 imprimeTabuleiro();
                             }                            
                         }while(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0);
                         if(linDest!=lin-1 || (colDest!=col+1 && colDest!=col-1) || mat[linDest][colDest]!=casaValida){
                             System.out.println("lin-"+lin+" col-"+col+" linDest-"+linDest+" colDest-"+colDest+" valor na posicao-"+mat[linDest][colDest]);
-                            System.out.println("destino invalido!!");
+                            System.out.println("Destino invalido!!");
                             imprimeTabuleiro();
                         }
                     }while(linDest!=lin-1 || (colDest!=col+1 && colDest!=col-1) || mat[linDest][colDest]!=casaValida);
