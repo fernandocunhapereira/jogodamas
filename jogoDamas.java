@@ -158,6 +158,7 @@ public class jogoDamas {
             int col;
             do{ //jogador 1 seleciona pedra FUNCIONANDO OK
                 do{
+                    System.out.println("TURNO DO JOGADOR 1");
                     System.out.print("Jogador 1 selecione a pedra (linha) ");
                     lin=leitor.nextInt();
                     lin--;
@@ -166,64 +167,85 @@ public class jogoDamas {
                     col--;
                     if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
                         System.out.println("posicao invalida!!");
+                        imprimeTabuleiro();
                     }                    
                 }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
                 if(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X){
                     System.out.println("pedra invalida ou posicao invalida!!");
+                    imprimeTabuleiro();
                 }
             }while(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X);
             if(mat[lin][col]=='x'){//verifica se a pedra é simples o movimento que pode fazer
                 do{
-                    System.out.print("Jogador 1 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (linha) ");
-                    linDest=leitor.nextInt(); 
-                    linDest--;
-                    System.out.print("Jogador 1 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (coluna) ");
-                    colDest=leitor.nextInt();
-                    colDest--;
+                    do{
+                        System.out.println("TURNO DO JOGADOR 1");  
+                        System.out.print("Jogador 1 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (linha) ");
+                        linDest=leitor.nextInt(); 
+                        linDest--;
+                        System.out.print("Jogador 1 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (coluna) ");
+                        colDest=leitor.nextInt();
+                        colDest--;
+                        if(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0){
+                            System.out.println("posicao invalida!!");
+                            imprimeTabuleiro();
+                        }                         
+                    }while(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0);
                     if(linDest!=lin+1 || (colDest!=col-1 && colDest!=col+1) || mat[linDest][colDest]!=casaValida){
                         System.out.println("lin-"+lin+" col-"+col+" linDest-"+linDest+" colDest-"+colDest+" valor na posicao-"+mat[linDest][colDest]);
                         System.out.println("destino invalido!!");
+                        imprimeTabuleiro();
                     }
                 }while(linDest!=lin+1 || (colDest!=col-1 && colDest!=col+1) || mat[linDest][colDest]!=casaValida);
                 mat[lin][col]=casaValida;
                 mat[linDest][colDest]=pedra1;
             }
-        }else{ //turno do jogador 2
-            int lin;
-            int col;
-            do{ //jogador 2 seleciona pedra FUNCIONANDO OK
-                do{
-                System.out.print("Jogador 2 selecione a pedra (linha) ");
-                lin=leitor.nextInt();
-                lin--;
-                System.out.print("Jogador 2 selecione a pedra (coluna) ");
-                col=leitor.nextInt();
-                col--;
-                    if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
-                        System.out.println("posicao invalida!!");
+            }else{ //turno do jogador 2
+                int lin;
+                int col;
+                do{ //jogador 2 seleciona pedra FUNCIONANDO OK
+                    do{
+                    System.out.println("TURNO DO JOGADOR 2");                        
+                    System.out.print("Jogador 2 selecione a pedra (linha) ");
+                    lin=leitor.nextInt();
+                    lin--;
+                    System.out.print("Jogador 2 selecione a pedra (coluna) ");
+                    col=leitor.nextInt();
+                    col--;
+                        if(lin>linha-1 || lin<0 || col>coluna-1 || col<0){
+                            System.out.println("posicao invalida!!");
+                            imprimeTabuleiro();
+                        }
+                    }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
+                    if(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A){
+                        System.out.println("pedra invalida ou posicao invalida!!");
+                        imprimeTabuleiro();
                     }
-                }while(lin>linha-1 || lin<0 || col>coluna-1 || col<0);
-                if(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A){
-                    System.out.println("pedra invalida ou posicao invalida!!");
+                }while(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A);
+                if(mat[lin][col]=='a'){//verifica se a pedra é simples e os movimentos que pode fazer
+                    do{
+                        do{
+                            System.out.println("TURNO DO JOGADOR 2");  
+                            System.out.print("Jogador 2 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (linha) ");
+                            linDest=leitor.nextInt(); 
+                            linDest--;
+                            System.out.print("Jogador 2 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (coluna) ");
+                            colDest=leitor.nextInt();
+                            colDest--;
+                            if(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0){
+                                System.out.println("posicao invalida!!");
+                                imprimeTabuleiro();
+                            }                            
+                        }while(linDest>linha-1 || linDest<0 || colDest>coluna-1 || colDest<0);
+                        if(linDest!=lin-1 || (colDest!=col+1 && colDest!=col-1) || mat[linDest][colDest]!=casaValida){
+                            System.out.println("lin-"+lin+" col-"+col+" linDest-"+linDest+" colDest-"+colDest+" valor na posicao-"+mat[linDest][colDest]);
+                            System.out.println("destino invalido!!");
+                            imprimeTabuleiro();
+                        }
+                    }while(linDest!=lin-1 || (colDest!=col+1 && colDest!=col-1) || mat[linDest][colDest]!=casaValida);
+                    mat[lin][col]=casaValida;
+                    mat[linDest][colDest]=pedra2;            
                 }
-            }while(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A);
-            if(mat[lin][col]=='a'){//verifica se a pedra é simples e os movimentos que pode fazer
-                do{ 
-                    System.out.print("Jogador 2 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (linha) ");
-                    linDest=leitor.nextInt(); 
-                    linDest--;
-                    System.out.print("Jogador 2 selecione a destino da pedra ("+(lin+1)+","+(col+1)+") (coluna) ");
-                    colDest=leitor.nextInt();
-                    colDest--;
-                    if(linDest!=lin-1 || (colDest!=col+1 && colDest!=col-1) || mat[linDest][colDest]!=casaValida){
-                        System.out.println("lin-"+lin+" col-"+col+" linDest-"+linDest+" colDest-"+colDest+" valor na posicao-"+mat[linDest][colDest]);
-                        System.out.println("destino invalido!!");
-                    }
-                }while(linDest!=lin-1 || (colDest!=col+1 && colDest!=col-1) || mat[linDest][colDest]!=casaValida);
-                mat[lin][col]=casaValida;
-                mat[linDest][colDest]=pedra2;            
             }
-        }
     }//fim da funcao jogar
     
     //funcao main
