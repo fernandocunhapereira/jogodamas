@@ -143,13 +143,122 @@ public class jogoDamas {
     }//fim da funcao turno
 
     //funcao checa se pedra simples pode comer pedra
-    /*public static void checaSimplesComer(){
-        if(mat[lin][col]==pedra1){
-
-        }else{
-
+    public static int checaSimplesComer(int lin_,int col_){
+        int podeComer=0;
+        if(mat[lin_][col_]==pedra1){//checa se jogador 1 pode comer com pedra simples
+            if(lin_-1>0){//comer superior esquerda
+                if(col_-1>0){
+                    if(mat[lin_-1][col_-1]==pedra2 || mat[lin_-1][col_-1]==pedra2A){
+                        if(lin_-2>=0){
+                            if(col_-2>=0){
+                                if(mat[lin_-2][col_-2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(lin_-1>0){//comer superior direita
+                if(col_+1>0 && col_+1<coluna){
+                    if(mat[lin_-1][col_+1]==pedra2 || mat[lin_-1][col_+1]==pedra2A){
+                        if(lin_-2>=0){
+                            if(col_+2<coluna){
+                                if(mat[lin_-2][col_+2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(lin_+1<linha){//comer inferior esquerda
+                if(col_-1>0){
+                    if(mat[lin_+1][col_-1]==pedra2 || mat[lin_+1][col_-1]==pedra2A){
+                        if(lin_+2<linha){
+                            if(col_-2>=0){
+                                if(mat[lin_+2][col_-2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(lin_+1<linha){//comer inferior direita
+                if(col_+1<coluna){
+                    if(mat[lin_+1][col_+1]==pedra2 || mat[lin_+1][col_+1]==pedra2A){
+                        if(lin_+2<linha){
+                            if(col_+2<coluna){
+                                if(mat[lin_+2][col_+2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }                        
+        }else{//checa se jogador 2 pode comer com pedra simples
+            if(lin_-1>0){//comer superior esquerda
+                if(col_-1>0){
+                    if(mat[lin_-1][col_-1]==pedra1 || mat[lin_-1][col_-1]==pedra1X){
+                        if(lin_-2>=0){
+                            if(col_-2>=0){
+                                if(mat[lin_-2][col_-2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(lin_-1>0){//comer superior direita
+                if(col_+1>0 && col_+1<coluna){
+                    if(mat[lin_-1][col_+1]==pedra1 || mat[lin_-1][col_+1]==pedra1X){
+                        if(lin_-2>=0){
+                            if(col_+2<coluna){
+                                if(mat[lin_-2][col_+2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(lin_+1<linha){//comer inferior esquerda
+                if(col_-1>0){
+                    if(mat[lin_+1][col_-1]==pedra1 || mat[lin_+1][col_-1]==pedra1X){
+                        if(lin_+2<linha){
+                            if(col_-2>=0){
+                                if(mat[lin_+2][col_-2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(lin_+1<linha){//comer inferior direita
+                if(col_+1<coluna){
+                    if(mat[lin_+1][col_+1]==pedra1 || mat[lin_+1][col_+1]==pedra1X){
+                        if(lin_+2<linha){
+                            if(col_+2<coluna){
+                                if(mat[lin_+2][col_+2]==casaValida){
+                                    podeComer=1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }             
         }
-    }*/
+        if(podeComer==1){
+            System.out.println("pedra pode comer!!");
+        }else{
+            System.out.println("pedra nao pode comer!!");
+        }
+        return podeComer;
+    }//fim da funcao checaSimplesComer
     
     //funcao jogar
     public static void jogar(){
@@ -175,6 +284,7 @@ public class jogoDamas {
                     imprimeTabuleiro();
                 }
             }while(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X);
+            checaSimplesComer(lin,col);
             if(mat[lin][col]=='x'){//verifica se a pedra é simples o movimento que pode fazer
                 do{
                     do{
@@ -221,6 +331,7 @@ public class jogoDamas {
                         imprimeTabuleiro();
                     }
                 }while(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A);
+                checaSimplesComer(lin,col);
                 if(mat[lin][col]=='a'){//verifica se a pedra é simples e os movimentos que pode fazer
                     do{
                         do{
