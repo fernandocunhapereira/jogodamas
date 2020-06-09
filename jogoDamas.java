@@ -3,22 +3,22 @@ import java.util.Scanner;
 public class jogoDamas {
     //declaracao de variaveis
     public static Scanner leitor=new Scanner(System.in);
-    public static int linha;
-    public static int coluna;
-    public static char mat[][];
-    public static char casaValida='@';
-    public static char casaInvalida=' ';
-    public static float maxLinhas;
-    public static char pedra1='x';
-    public static char pedra1X='X';
-    public static char pedra2='a';
-    public static char pedra2A='A';
-    public static int contPedra1=0;
-    public static int contPedra2=0;
-    public static int turno=0;
-    public static int vencedor=0;
-    public static int linDest;
-    public static int colDest;
+    public static int linha; //linhas do tabuleiro
+    public static int coluna; //colunas do tabuleiro
+    public static char mat[][]; //matriz casas e pedras
+    public static char casaValida='@'; //casas pretas
+    public static char casaInvalida=' '; //casas brancas
+    public static float maxLinhas; //maximo de linhas iniciais preenchidas com pedras de um jogador
+    public static char pedra1='x'; //pedra simples 1
+    public static char pedra1X='X'; //pedra composta 1
+    public static char pedra2='a'; //pedra simples 2
+    public static char pedra2A='A'; //pedra composta 2
+    public static int contPedra1=0; //contador de pedras 1
+    public static int contPedra2=0; //contador de pedras 2
+    public static int turno=0; //alternador de turno dos jogadores
+    public static int vencedor=0; //verificador de vencedor
+    public static int linDest; //linha destino pedra
+    public static int colDest; //coluna destino pedra
 
     //funcao inicia matriz
     public static void iniciaMatriz(){
@@ -171,6 +171,7 @@ public class jogoDamas {
             possivel=1;
         }else{
             System.out.println("Não há movimento possivel para pedra ("+(lin_+1)+","+(col_+1)+")!!");
+            imprimeTabuleiro();
         }
         return possivel;
     }
@@ -319,7 +320,8 @@ public class jogoDamas {
                     }
                 }while(mat[lin][col]!=pedra1 && mat[lin][col]!=pedra1X);
             }while(movimentoPossivel(lin,col)!=1);
-            checaSimplesComer(lin,col);
+            //checaSimplesComer(lin,col);
+            //DESENVOLVER JOGADA COMER PEDRA
             if(mat[lin][col]==pedra1){//verifica se a pedra é simples o movimento que pode fazer
                 do{
                     do{
@@ -368,7 +370,8 @@ public class jogoDamas {
                         }
                     }while(mat[lin][col]!=pedra2 && mat[lin][col]!=pedra2A);
                 }while(movimentoPossivel(lin,col)!=1);
-                checaSimplesComer(lin,col);
+                //checaSimplesComer(lin,col);
+                //DESENVOLVER FUNCAO COMER PEDRA
                 if(mat[lin][col]==pedra2){//verifica se a pedra é simples e os movimentos que pode fazer
                     do{
                         do{
